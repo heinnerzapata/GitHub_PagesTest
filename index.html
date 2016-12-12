@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Test API REST</title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+				
+	</head>
+	<body ng-app="myApp" ng-controller="myController">
+		
+						
+		Search
+
+		<input type="text" ng-model="texto" />
+
+		<p>{{texto}}</p>
+		
+		<hr/>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-1">
+					{{Characters.id}}
+				</div>
+				<div class="col-xs-2">
+					{{Characters.name}}
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		
+		<script>
+		
+			var app = angular.module('myApp', []);
+			app.controller('myController', function($scope,$http) {
+				
+				$scope.Characters = [];
+				
+				$scope.getCharacters = function(){
+				
+				  $http.get('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=3ea1cd1673639f6a528e957b1db5939b&hash=cfa3f7936bc2ccd074e8876351bcffa3').
+					  then(function(response) {
+						  
+						  $scope.Characters = response.data.data.results;
+
+					  });
+
+				}
+				
+				$scope.getCharacters();
+				
+			});
+		
+		</script>
+		
+	</body>
+</html>
